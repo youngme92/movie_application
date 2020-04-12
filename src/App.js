@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 const artist = [
   {
@@ -28,6 +30,7 @@ const artist = [
 ]
 
 
+
 function ArtistList({name, url, content }){
   return <div>
     <h1>This is {name}</h1>
@@ -37,16 +40,35 @@ function ArtistList({name, url, content }){
   </div>
 }
 
-function App() {
-  return (
-    <div>
-      Hi
-      {artist.map(function(artist){
-        return <ArtistList key={artist.id} name={artist.name} url={artist.url} content={artist.content} />
-        
-      })}
-    </div>
-  );
+ArtistList.propTypes = {
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
 }
+
+
+class App extends React.Component {
+  state = {
+    count: 0
+  };
+  add = function(){
+    console.log("add");
+  }
+  minus = function(){
+    console.log("minus");
+  }
+
+  render(){
+    return (
+    <div>
+    <h1>count is : {this.state.count} </h1>
+    <button onClick={this.add}>Add</button>
+    <button onClick={this.minus}>Minus</button>
+    </div>
+    )
+  }
+}
+
+
 
 export default App;
