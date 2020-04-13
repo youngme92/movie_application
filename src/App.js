@@ -48,17 +48,35 @@ ArtistList.propTypes = {
 
 
 class App extends React.Component {
+  constructor(props){
+    super(props)
+    console.log("first");
+  }
   state = {
     count: 0
   };
-  add = function(){
-    console.log("add");
-  }
-  minus = function(){
-    console.log("minus");
+  add = () => {
+    this.setState(current => ({count: current.count + 1})
+    );
   }
 
+  minus = () => {
+    this.setState(current => ({count: current.count - 1})
+    );
+  }
+  componentDidMount(){
+    console.log("third");
+  }
+
+  shouldComponentUpdate(){
+    console.log("fourth")
+    return true;
+  }
+  componentDidUpdate(){
+    console.log("five")
+  }
   render(){
+    console.log("second");
     return (
     <div>
     <h1>count is : {this.state.count} </h1>
