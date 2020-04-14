@@ -1,89 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
+import Movie from './Movie';
 
-
-const artist = [
-  {
-    id: 1,
-    name: "DaBaby",
-    url: "https://www.whosampled.com/static/track_images_200/lr197489_202041_221034314151.jpg",
-    content: "Real Name: Jonathan Lyndale Kirk"
-  },
-  {
-    id: 2,
-    name: "The Weeknd",
-    url: "https://www.whosampled.com/static/track_images_200/lr249803_2020123_111053337885.jpg",
-    content: "Real Name: Abel Makkonen Tesfaye"
-  },
-  {
-    id: 3,
-    name: "Lil Peep",
-    url: "https://www.whosampled.com/static/track_images_200/lr163643_2016105_13575657669.jpg",
-    content: "Real Name: Gustav Åhr In Groups: GOTHBOICLIQUE"
-  },
-  {
-    id: 4,
-    name: "Kendrick Lamar",
-    url: "https://www.whosampled.com/static/track_images_200/lr1536_2017414_112716284634.jpg",
-    content: "Real Name: Kendrick Lamar Duckworth Aliases: K-Dot In Groups: Black Hippy"
-  }
-]
-
-
-
-function ArtistList({name, url, content }){
-  return <div>
-    <h1>This is {name}</h1>
-    <img src={url} alt={name}></img>
-    <p>{content}</p>
-
-  </div>
-}
-
-ArtistList.propTypes = {
-  name: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
-}
 
 
 class App extends React.Component {
-  constructor(props){
-    super(props)
-    console.log("first");
-  }
   state = {
-    count: 0
-  };
-  add = () => {
-    this.setState(current => ({count: current.count + 1})
-    );
+    isLoading: true,
+    movies: []
+  }
+// movies를 movies 한개만 둬도 가능
+  getMovies = async () => {
+    const {data: {data: {movies}}} = await axios.get("https://yts.mx/api/v2/list_movies.json")
+    this.setState({movies : movies, isLoading: false})
   }
 
-  minus = () => {
-    this.setState(current => ({count: current.count - 1})
-    );
-  }
   componentDidMount(){
-    console.log("third");
+    console.log("movies update!")
+    this.getMovies();
   }
 
-  shouldComponentUpdate(){
-    console.log("fourth")
-    return true;
-  }
   componentDidUpdate(){
-    console.log("five")
+    console.log(this.state.movies)
   }
   render(){
-    console.log("second");
-    return (
-    <div>
-    <h1>count is : {this.state.count} </h1>
-    <button onClick={this.add}>Add</button>
-    <button onClick={this.minus}>Minus</button>
-    </div>
-    )
+    const {isLoading, movies} = this.state;
+  return <div>{isLoading ? "Loading..." : movies.map(movies => {
+    console.log(movies)
+    return <Movie key={movies.id} id={movies.id} url={movies.url} title={movies.title} year={movies.year} summary={movies.summary} poster={movies.medium_cover_image} />
+  })}</div>
   }
 }
 
