@@ -25,10 +25,10 @@ class App extends React.Component {
   }
 render() {
     const {isLoading, movies} = this.state;
-    return <section class="container">{
+    return <section className="container">{
             isLoading
-                ? <div class="loader">
-                        <span class="loader__text">Loading...</span>
+                ? <div className="loader">
+                        <span className="loader__text">Loading...</span>
                     </div>
                 : movies.map(movies => {
                     console.log(movies)
@@ -39,7 +39,10 @@ render() {
                         title={movies.title}
                         year={movies.year}
                         summary={movies.summary}
-                        poster={movies.medium_cover_image}/>
+                        poster={movies.medium_cover_image}
+                        genres={movies.genres}
+                        />
+                        
                 })
         }</section>
 }
