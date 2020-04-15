@@ -4,6 +4,7 @@ import Movie from './Movie';
 import './App.css';
 
 
+
 class App extends React.Component {
   state = {
     isLoading: true,
@@ -19,7 +20,6 @@ class App extends React.Component {
     console.log("movies update!")
     this.getMovies();
   }
-
   componentDidUpdate(){
     console.log(this.state.movies)
   }
@@ -30,23 +30,25 @@ render() {
                 ? <div className="loader">
                         <span className="loader__text">Loading...</span>
                     </div>
-                : movies.map(movies => {
-                    console.log(movies)
-                    return <Movie
-                        key={movies.id}
-                        id={movies.id}
-                        url={movies.url}
-                        title={movies.title}
-                        year={movies.year}
-                        summary={movies.summary}
-                        poster={movies.medium_cover_image}
-                        genres={movies.genres}
-                        />
-                        
-                })
-        }</section>
+                : (
+                    <div className="movies">
+                        {
+                            movies.map(movies => {
+                                console.log(movies)
+                                return <Movie
+                                    key={movies.id}
+                                    id={movies.id}
+                                    url={movies.url}
+                                    title={movies.title}
+                                    year={movies.year}
+                                    summary={movies.summary}
+                                    poster={movies.medium_cover_image}
+                                    genres={movies.genres}/>
+                            })
+                        }</div>
+                )
+        }
+    </section>
 }
 }
-
-
 export default App;
