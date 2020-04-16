@@ -17,6 +17,7 @@ function Movie({
         <div className="movie__data">
             <h3 className="movie__title">{title}</h3>
             <h5 className="movie__year">{year}</h5>
+            <a className="movie__url" href={url}>{url}</a>
             <ul className="movie__genres">{
                     genres.map(
                         (gener, index) => <li key={index} className="genres_genre">{gener}</li>
