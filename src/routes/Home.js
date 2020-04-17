@@ -17,7 +17,7 @@ class Home extends React.Component {
   }
 
   componentDidMount(){
-    console.log("movies update!")
+    console.log("first render after!")
     this.getMovies();
   }
   componentDidUpdate(){
@@ -25,30 +25,32 @@ class Home extends React.Component {
   }
 render() {
     const {isLoading, movies} = this.state;
-    return <section className="container">{
-            isLoading
-                ? <div className="loader">
-                        <span className="loader__text">Loading...</span>
-                    </div>
-                : (
-                    <div className="movies">
-                        {
-                            movies.map(movies => {
-                                console.log(movies)
-                                return <Movie
-                                    key={movies.id}
-                                    id={movies.id}
-                                    url={movies.url}
-                                    title={movies.title}
-                                    year={movies.year}
-                                    summary={movies.summary}
-                                    poster={movies.medium_cover_image}
-                                    genres={movies.genres}/>
-                            })
-                        }</div>
-                )
-        }
-    </section>
+    return (
+        <section className="container">{
+                isLoading
+                    ? <div className="loader">
+                            <span className="loader__text">Loading...</span>
+                        </div>
+                    : (
+                        <div className="movies">
+                            {
+                                movies.map(movies => {
+                                    console.log(movies)
+                                    return <Movie
+                                        key={movies.id}
+                                        id={movies.id}
+                                        url={movies.url}
+                                        title={movies.title}
+                                        year={movies.year}
+                                        summary={movies.summary}
+                                        poster={movies.medium_cover_image}
+                                        genres={movies.genres}/>
+                                })
+                            }</div>
+                    )
+            }
+        </section>
+    )
 }
 }
 export default Home;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Movie.css';
 
@@ -12,12 +13,26 @@ function Movie({
     genres
 }) {
     return ( 
+       
     <div className="movie">
-        <img src={poster} alt={title} title={title}></img>
+         <Link to={
+            {
+                pathname: `/movie/${id}`,
+                state: {
+                    id,
+                    url,
+                    title,
+                    year,
+                    summary,
+                    poster,
+                    genres
+                }
+            }
+        }><img src={poster} alt={title} title={title}></img>
         <div className="movie__data">
             <h3 className="movie__title">{title}</h3>
             <h5 className="movie__year">{year}</h5>
-            <a className="movie__url" href={url}>{url}</a>
+            {/* <a className="movie__url" href={url}>{url}</a> */}
             <ul className="movie__genres">{
                     genres.map(
                         (gener, index) => <li key={index} className="genres_genre">{gener}</li>
@@ -26,7 +41,9 @@ function Movie({
             
             <p className="movie__summary">{summary.slice(0, 80)}...</p>
         </div>
+        </Link>
     </div>
+    
     )
 }
 
